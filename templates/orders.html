@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ css_url }}">
+    <title>Заказы</title>
+</head>
+<body>
+{% if auth and client %}
+    <div class="wrapper">
+        <div class="header">
+            <span class="username">{{ client.client_login }}</span><br>
+            {% if client.isadmin == False %}
+                <a href="/basket">Корзина</a>&nbsp;
+            {% endif %}
+            <a href="/">Главная</a>&nbsp;
+            <a href="/logout">Выйти</a>
+        </div>
+    <table>
+    <tr>
+        <th>Сумма</th>
+        <th>Статус</th>
+    </tr>
+        {% if db_data %}
+            {% for item in db_data %}
+                <tr>
+                    <td><h3>{{ item.cost }}</h3></td>
+                    <td>{{ item.status }}</td>
+                    {% if client.isadmin == True and item.status != "готов"%}
+                        <td><form action="/take_order/{{item.order_id}}"><button class="find_btn">Принять заказ</button></form></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+{% endif %}
+</div>
+</body>
+</html>

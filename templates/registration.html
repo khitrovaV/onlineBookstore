@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/libs/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Регистрация</title>
+</head>
+<body class="auth">
+    <div class="wrapper">
+            <div class="row">
+                <form action="/registration" method="POST" class="auth-form">
+                    <div class="header">
+                        <h1>Регистрация</h1>
+                        <a href="/">Главная</a>&nbsp;
+                        {% if errors %}
+                        <ul class="errors">
+                            {% for error in errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    </div>
+                    <input class="myinput" type="text" name="login" required placeholder="Логин">
+                    <input class="myinput" type="password" name="password" required placeholder="Пароль">
+                    <input class="myinput" type="password" name="password_confirm" required placeholder="Повторите пароль">
+                    <input class="myinput" type="text" name="fio" required placeholder="ФИО">
+                    <input class="myinput" type="text" name="address" required placeholder="Адрес">
+                    <div>
+                        <button class="add_btn" type="submit">Зарегестрироваться</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+    
+</body>
+</html>

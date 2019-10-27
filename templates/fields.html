@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ css_url }}">
+    <title>Online-Bookstore</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        {% if auth and client %}
+            <span class="username" align="left">{{ client.client_login }}</span><br>
+            {% if client.isadmin == False %}
+                <a href="/basket">Корзина</a>&nbsp;
+            {% endif %}
+            <a href="/order_journal">Заказы</a>&nbsp;
+            <a href="/logout">Выйти</a>
+        {% else %}
+            <a href="/login">Войти</a>/<a href="/registration">Регистрация</a>
+        {% endif %}
+    </div>
+<div align="center">
+    <form action="/find" method="get">
+            <input type="text" name="finded_value">
+            <button type="submit" class="find_btn"><span>Найти</span></button>
+    </form><br>
+</div>
+<table>
+<tr>
+    <th>Книга</th>
+    <th>Цена</th>
+    {% if auth and client.isadmin == False %}
+        <th>Выбрать количество</th>
+    {% endif %}
+</tr>
+{% if db_data %}
+    {% for item in db_data %}
+        <tr>
+            <td><h3>{{ item.name }}</h3>
+                <i>{{ item.author }}</i><br>
+            {% if item.style %}
+                <b>{{ item.style }}</b>
+            {% endif %}<br></td>
+            <td>{{ item.price }}</td>
+            {% if auth and client.isadmin == False %}
+                <form action="/add_book/{{ item.book_id }}" method="get">
+                <td><input type="number" name="count" value="1" min="0" max= {{ item.number }} step="1"></td>
+                <td><button class="add_btn">В корзину</button></td></form>
+            {% endif %}
+            {% if auth and client.isadmin == True %}<td>
+                <form action="/delete/{{ item.book_id }}" method="get"><button class="delete_btn">Удалить товар</button></form>
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+{% endif %}
+</table>
+<br>
+    {% if auth and client.isadmin == True %}
+        <form action="/get_add"><button class="add_btn"><span>Добавить товар</span></button></form>
+    {% endif %}
+</div>
+</body>
+</html>
