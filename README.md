@@ -1,4 +1,5 @@
 # onlineBookstore
-##Участники: Гаршин Тимур и Хитрова Виктория
+=======================================
+Участники: Гаршин Тимур и Хитрова Виктория
 -------------------------------------
-####[Trello](https://trello.com/b/36HWAmZd/onlinebookstore)
+[Trello](https://trello.com/b/36HWAmZd/onlinebookstore)
